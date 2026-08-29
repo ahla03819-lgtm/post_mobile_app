@@ -49,7 +49,7 @@ class RegisterController extends GetxController {
     return null;
   }
 
-  onRegister() async {
+  Future<void> onRegister() async {
     if (loading.value) {
       return;
     }

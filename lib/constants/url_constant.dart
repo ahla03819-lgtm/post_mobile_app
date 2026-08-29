@@ -4,4 +4,5 @@ class UrlConstants {
   static const String loginPath = "$baseUrl/api/oauth/token";
   static const String registerPath = "$baseUrl/api/oauth/register";
   static const String refreshTokenPath = "$baseUrl/api/oauth/refresh";
+  static const String adminListPostPath = "$baseUrl/api/app/post";
 }

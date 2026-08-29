@@ -88,12 +88,12 @@ class ApiServiceImpl implements ApiService {
 
   @override
   Future get(String url) async {
-    dynamic responseBody;
     headers["Authorization"] = "Bearer ${AccessTokenStorage.getAccessToken()}";
     var response = await httpClient.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
-      responseBody = response.body;
-    } else if (response.statusCode == 401) {
+      return response.body;
+    }
+    if (response.statusCode == 401) {
       if (await refreshToken() == true) {
         // Retry
         headers["Authorization"] =
@@ -103,13 +103,12 @@ class ApiServiceImpl implements ApiService {
           headers: headers,
         );
         if (retryResponse.statusCode == 200) {
-          responseBody = retryResponse.body;
+          return retryResponse.body;
         }
       } else {
         Get.offNamed(AppRouteName.splash);
       }
-    } else {
-      return responseBody;
     }
+    return null;
   }
 }
