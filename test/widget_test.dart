@@ -10,6 +10,8 @@ void main() {
       AppRouteName.splash,
       AppRouteName.home,
       AppRouteName.login,
+      AppRouteName.adminDashboard,
+      AppRouteName.adminPost,
     ]);
   });
 }
