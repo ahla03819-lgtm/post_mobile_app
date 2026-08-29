@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post_mobile_application/modules/auth/login/controller/login_controller.dart';
+import 'package:post_mobile_application/routes/app_route_name.dart';
 import 'package:post_mobile_application/widgets/button_custom_widget.dart';
 import 'package:post_mobile_application/widgets/input_form_custom.dart';
 
@@ -38,6 +39,10 @@ class LoginView extends GetView<LoginController> {
                 },
                 loading: controller.loading.value,
                 title: "Login",
+              ),
+              TextButton(
+                onPressed: () => Get.toNamed(AppRouteName.register),
+                child: Text("Create Account"),
               ),
             ],
           ),

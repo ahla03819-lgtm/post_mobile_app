@@ -5,6 +5,8 @@ import 'package:post_mobile_application/modules/admin/post/binding/post_binding.
 import 'package:post_mobile_application/modules/admin/post/view/post_view.dart';
 import 'package:post_mobile_application/modules/auth/login/binding/login_binding.dart';
 import 'package:post_mobile_application/modules/auth/login/view/login_view.dart';
+import 'package:post_mobile_application/modules/auth/register/binding/register_binding.dart';
+import 'package:post_mobile_application/modules/auth/register/view/register_view.dart';
 import 'package:post_mobile_application/modules/home/binding/home_binding.dart';
 import 'package:post_mobile_application/modules/home/view/home_view.dart';
 import 'package:post_mobile_application/modules/splash/binding/splash_binding.dart';
@@ -29,6 +31,11 @@ class AppRoutes {
         name: AppRouteName.login,
         page: () => LoginView(),
         binding: LoginBinding(),
+      ),
+      GetPage(
+        name: AppRouteName.register,
+        page: () => RegisterView(),
+        binding: RegisterBinding(),
       ),
       GetPage(
         name: AppRouteName.adminDashboard,

@@ -8,6 +8,8 @@ import 'package:post_mobile_application/core/data/local/access_token_storage.dar
 import 'package:post_mobile_application/core/models/auth/login/LoginRequest.dart';
 import 'package:post_mobile_application/core/models/auth/login/LoginResponse.dart';
 import 'package:post_mobile_application/core/models/auth/login/RefreshTokenRequest.dart';
+import 'package:post_mobile_application/core/models/auth/register/RegisterRequest.dart';
+import 'package:post_mobile_application/core/models/auth/register/RegisterResponse.dart';
 import 'package:post_mobile_application/routes/app_route_name.dart';
 import 'package:post_mobile_application/routes/app_routes.dart';
 
@@ -30,6 +32,32 @@ class ApiServiceImpl implements ApiService {
       loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
     }
     return loginResponse;
+  }
+
+  @override
+  Future<RegisterResponse> register(RegisterRequest req) async {
+    var response = await httpClient.post(
+      Uri.parse(UrlConstants.registerPath),
+      body: jsonEncode(req.toJson()),
+      headers: headers,
+    );
+
+    try {
+      return RegisterResponse.fromJson(jsonDecode(response.body));
+    } catch (_) {
+      if (response.statusCode == 400 ||
+          response.statusCode == 409 ||
+          response.statusCode == 422) {
+        return RegisterResponse(
+          code: response.statusCode.toString(),
+          message: "Registration request was rejected",
+        );
+      }
+      return RegisterResponse(
+        code: response.statusCode.toString(),
+        message: "Server error. Please try again",
+      );
+    }
   }
 
   @override
