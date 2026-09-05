@@ -10,19 +10,27 @@ class PostController extends GetxController {
   final ApiService apiService;
   var dataLoading = false.obs;
   var postList = <Content>[].obs;
+  var errorMessage = "".obs;
 
   PostController({required this.apiService});
 
   Future<void> getAllPosts() async {
     dataLoading.value = true;
-    var response = await apiService.get(
-      "${UrlConstants.adminListPostPath}?page=0&size=100&status=ACT",
-    );
-    dataLoading.value = false;
-    var responseBody = PostResponse.fromJson(jsonDecode(response));
-    if (responseBody.data != null) {
-      print("${responseBody.toJson()}");
-      postList.value = responseBody.data!.content ?? [];
+    errorMessage.value = "";
+    try {
+      var response = await apiService.get(
+        "${UrlConstants.adminListPostPath}?page=0&size=100&status=ACT",
+      );
+      if (response == null) {
+        errorMessage.value = "Unable to load posts";
+        return;
+      }
+      var responseBody = PostResponse.fromJson(jsonDecode(response));
+      postList.value = responseBody.data?.content ?? [];
+    } catch (_) {
+      errorMessage.value = "Unable to load posts";
+    } finally {
+      dataLoading.value = false;
     }
   }
 

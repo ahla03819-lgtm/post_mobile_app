@@ -106,7 +106,9 @@ class ApiServiceImpl implements ApiService {
           return retryResponse.body;
         }
       } else {
-        Get.offNamed(AppRouteName.splash);
+        AccessTokenStorage.setAccessToken("");
+        AccessTokenStorage.setRefreshToken("");
+        Get.offAllNamed(AppRouteName.login);
       }
     }
     return null;

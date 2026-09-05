@@ -6,6 +6,6 @@ class InitialBinding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
-    Get.lazyPut<ApiService>(() => ApiServiceImpl());
+    Get.lazyPut<ApiService>(() => ApiServiceImpl(), fenix: true);
   }
 }
